@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   headerBackground: {
@@ -19,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+function Header({ className }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.headerBackground}>
+    <div className={clsx(classes.headerBackground, className)}>
       <div className={classes.headerTitle}>To Do List App</div>
     </div>
   );
