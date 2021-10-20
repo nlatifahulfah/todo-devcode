@@ -1,10 +1,12 @@
-import Button from "components/Button";
-import Header from "components/Header";
-import { ReactComponent as PlusIcon } from "assets/icon/tabler_plus.svg";
-import Title from "components/Title";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { ReactComponent as PlusIcon } from "assets/icon/tabler_plus.svg";
 import ActivityEmptyImage from "assets/png/activity-empty-state.png";
+import ActivityCard from "components/ActivityCard";
+import Button from "components/Button";
+import Header from "components/Header";
+import Title from "components/Title";
+import { useState } from "react";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles(() => ({
 
 function Dashboard() {
   const classes = useStyles();
+  const [list, setList] = useState(generateList(21));
 
   return (
     <>
@@ -39,16 +42,37 @@ function Dashboard() {
             Tambah
           </Button>
         </Grid>
-        {/* <div> */}
-        <img
-          src={ActivityEmptyImage}
-          alt="add-activity"
-          className={classes.addActivityImg}
-        />
-        {/* </div> */}
+        {(!list || list.length === 0) && (
+          <img
+            src={ActivityEmptyImage}
+            alt="add-activity"
+            className={classes.addActivityImg}
+          />
+        )}
+        {list?.length > 0 && (
+          <Grid container>
+            {list?.length > 0 &&
+              list.map((v) => (
+                <Grid item key={v.id} md={3}>
+                  <ActivityCard
+                    title={v.title}
+                    date={v.created_at}
+                    className={classes.mb26}
+                  />
+                </Grid>
+              ))}
+          </Grid>
+        )}
       </div>
     </>
   );
 }
 
 export default Dashboard;
+
+const generateList = (length) =>
+  Array.from({ length }, (_, i) => ({
+    id: i + 1,
+    title: "New Activity" + i,
+    created_at: new Date().toString(),
+  }));
