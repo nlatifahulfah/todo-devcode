@@ -31,6 +31,11 @@ const StyledButton = withStyles((theme) => ({
       background: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
     },
+    "&:disabled": {
+      color: "#FFFFFF",
+      background: "#16ABF8",
+      opacity: 0.2,
+    },
   },
   textSecondary: {
     // color=secondary
