@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
   },
   mb26: { marginBottom: 26 },
   mb42: { marginBottom: 42 },
+  mb48: { marginBottom: 48 },
   addActivityImg: {
     maxWidth: "100%",
     height: "auto",
