@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Card, Checkbox, Grid } from "@material-ui/core";
+import { Checkbox } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
 import { ReactComponent as EditIcon } from "assets/icon/edit-button.svg";
@@ -10,6 +10,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     borderRadius: "12px",
     padding: "28px 24px",
+    background: "#FFFFFF",
+    boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.1)",
+  },
+  todo: {
+    display: "flex",
+    alignItems: "center",
+    flexGrow: 1,
   },
   priorityIndicator: {
     width: "9px",
@@ -38,18 +45,18 @@ export default function TodoCard({
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <div style={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-        <Checkbox color="primary" />
+    <div className={classes.root}>
+      <div className={classes.todo}>
+        <Checkbox color="primary" checked={isDone} onClick={onClickCheckbox} />
         <div
           className={classes.priorityIndicator}
           style={{ background: priority }}
         />
         <div className={classes.title}>{title}</div>
-        <EditIcon />
+        <EditIcon onClick={onClickEdit} />
       </div>
-      <DeleteIcon style={{}} />
-    </Card>
+      <DeleteIcon onClick={onClickDelete} />
+    </div>
   );
 }
 
