@@ -1,47 +1,52 @@
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import { forwardRef } from "react";
 
-const StyledButton = withStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: "45px",
     minWidth: "150px",
     height: "54px",
-  },
-  label: {
+    border: "none",
     fontWeight: 600,
     fontSize: "18px",
     textTransform: "capitalize",
     margin: "0px 6px",
   },
-  text: {
-    background: "#F4F4F4",
-    color: "#4A4A4A",
-    "&:hover": {
-      background: "#F4F4F4",
-      color: "#4A4A4A",
-    },
-  },
-  textPrimary: {
+  primary: {
     background: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
-    "&:hover": {
-      background: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
-    },
+
     "&:disabled": {
-      color: "#FFFFFF",
-      background: "#16ABF8",
       opacity: 0.2,
     },
   },
-  textSecondary: {
+  secondary: {
     background: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText,
-    "&:hover": {
-      background: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText,
-    },
   },
-}))(Button);
+}));
+
+const StyledButton = forwardRef(
+  ({ color, children, startIcon, className, ...props }, ref) => {
+    const classes = useStyles();
+
+    return (
+      <button
+        className={clsx(
+          classes.root,
+          color === "primary" && classes.primary,
+          color === "secondary" && classes.secondary,
+          className
+        )}
+        ref={ref}
+        {...props}
+      >
+        {startIcon}
+        {children}
+      </button>
+    );
+  }
+);
 
 export default StyledButton;

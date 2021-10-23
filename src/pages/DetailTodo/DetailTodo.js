@@ -27,10 +27,8 @@ const useStyles = makeStyles(() => ({
     maxWidth: 1000,
     margin: "auto",
   },
-  mb26: { marginBottom: 26 },
   mb42: { marginBottom: 42 },
   mb48: { marginBottom: 48 },
-  mr18: { marginRight: 18 },
   pt24: { paddingTop: 24 },
   addImg: {
     maxWidth: "100%",
@@ -39,7 +37,6 @@ const useStyles = makeStyles(() => ({
     margin: "auto",
   },
   iconBtn: {
-    cursor: "pointer",
     margin: "0px 12px",
   },
   modalConfirm: {

@@ -1,14 +1,24 @@
-import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core";
 
-const TitleTextField = withStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiInputBase-root": {
-      fontWeight: "bold",
-      fontSize: 36,
-      color: "#111111",
+    background: "none",
+    fontWeight: "bold",
+    fontSize: 36,
+    color: "#111111",
+    border: "none",
+
+    "&:focus": {
+      border: "none",
+      outline: "none",
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
   },
-})(TextField);
+}));
+const TitleTextField = ({ ...props }) => {
+  const classes = useStyles();
+
+  return <input className={classes.root} type="text" {...props} />;
+};
 
 export default TitleTextField;

@@ -13,6 +13,13 @@ Default.args = {
   children: "Default",
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  color: "primary",
+  disabled: true,
+  children: "Disabled",
+};
+
 export const Primary = Template.bind({});
 Primary.args = {
   color: "primary",
