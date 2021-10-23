@@ -1,4 +1,5 @@
-import { TextField, withStyles } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/styles";
 
 const TitleTextField = withStyles({
   root: {

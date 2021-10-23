@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/styles";
-import { ReactComponent as ChevronDown } from "assets/icon/tabler_chevron-down.svg";
-import { todoPriority } from "components/TodoCard/TodoCard";
-import { useState } from "react";
 import { ReactComponent as SelectedIcon } from "assets/icon/sort-selection-selected.svg";
+import { ReactComponent as ChevronDown } from "assets/icon/tabler_chevron-down.svg";
 import clsx from "clsx";
+import { todoPriority } from "components/TodoCard/TodoCard";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: { width: 205, position: "relative" },
@@ -107,7 +107,7 @@ export default function SelectPriority({ selected, onSelect }) {
                 />
                 <div className={classes.text}>{val.label}</div>
               </div>
-              {selected === val && <SelectedIcon />}
+              {selected === key && <SelectedIcon />}
             </div>
           ))}
         </div>

@@ -1,4 +1,3 @@
-import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
 import clsx from "clsx";
@@ -17,7 +16,6 @@ const useStyles = makeStyles(() => ({
   title: {
     fontWeight: "bold",
     fontSize: "18px",
-    lineHeight: "27px",
     color: "#111111",
     height: "162px",
     overflow: "hidden",
@@ -27,9 +25,12 @@ const useStyles = makeStyles(() => ({
     fontStyle: "normal",
     fontWeight: 500,
     fontSize: "14px",
-    lineHeight: "21px",
   },
-  pointer: { cursor: "pointer" },
+  footer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 }));
 
 function ActivityCard({ title, date, onClick, onClickDelete, className }) {
@@ -38,13 +39,13 @@ function ActivityCard({ title, date, onClick, onClickDelete, className }) {
   return (
     <div
       data-cy="activity-item"
-      className={clsx(classes.card, onClick && classes.pointer, className)}
+      className={clsx(classes.card, className)}
       onClick={onClick}
     >
       <div data-cy="activity-item-title" className={classes.title}>
         {title}
       </div>
-      <Grid container justifyContent="space-between" alignItems="center">
+      <div className={classes.footer}>
         <div data-cy="activity-item-date" className={classes.date}>
           {formatDate(date)}
         </div>
@@ -55,7 +56,7 @@ function ActivityCard({ title, date, onClick, onClickDelete, className }) {
             onClickDelete && onClickDelete();
           }}
         />
-      </Grid>
+      </div>
     </div>
   );
 }

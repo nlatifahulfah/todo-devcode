@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Checkbox } from "@material-ui/core";
+import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
 import { ReactComponent as EditIcon } from "assets/icon/edit-button.svg";
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 500,
     fontSize: "18px",
-    lineHeight: "27px",
     color: "#111111",
     marginRight: 19,
   },
@@ -66,7 +65,6 @@ export default function TodoCard({
           color="primary"
           checked={isDone}
           onChange={(e) => {
-            console.log("checkbox");
             e.stopPropagation();
             onClickCheckbox && onClickCheckbox(e);
           }}
@@ -82,7 +80,6 @@ export default function TodoCard({
         <EditIcon
           data-cy="todo-item-edit-button"
           onClick={(e) => {
-            console.log("edit");
             e.stopPropagation();
             onClickEdit && onClickEdit(e);
           }}

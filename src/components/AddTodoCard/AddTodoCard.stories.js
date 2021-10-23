@@ -1,3 +1,4 @@
+import { todoPriority } from "components/TodoCard/TodoCard";
 import AddTodoCard from ".";
 
 export default {
@@ -8,4 +9,6 @@ export default {
 const Template = (args) => <AddTodoCard {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  priority: "very-high",
+};

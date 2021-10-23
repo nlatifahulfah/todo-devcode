@@ -10,12 +10,10 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     width: "490px",
-    // height: "355px",
     background: "#FFFFFF",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "12px",
     padding: "50px 58px 43px",
-    // margin: "20px auto",
   },
   buttonGroup: {
     display: "flex",

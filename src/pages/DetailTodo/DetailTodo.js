@@ -1,4 +1,6 @@
-import { Grid, makeStyles, Modal, Popper } from "@material-ui/core";
+import Modal from "@material-ui/core/Modal";
+import Popper from "@material-ui/core/Popper";
+import { makeStyles } from "@material-ui/styles";
 import * as apiActivity from "api/activity";
 import * as apiTodo from "api/todo";
 import { ReactComponent as BackIcon } from "assets/icon/back-button.svg";
@@ -46,6 +48,11 @@ const useStyles = makeStyles(() => ({
     left: "50%",
     transform: "translate(-50%,-50%)",
   },
+  flexContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  spaceBetween: { justifyContent: "space-between" },
 }));
 
 const defaultFormValues = { title: "", priority: "very-high" };
@@ -54,22 +61,13 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   const classes = useStyles();
   const [list, setList] = useState([]);
 
-  // const reqGetList = (activityId) =>
-  //   apiTodo.getList(activityId).then((result) => {
-  //     setList(result.data);
-  //     console.log({ result });
-  //   });
-
   const reqGetDetail = (activityId) =>
     apiActivity.getDetail(activityId).then((result) => {
       setList(result.todo_items);
-      console.log({ result });
     });
 
   useEffect(() => {
     if (activityId) {
-      // apiActivity.getDetail(activityId);
-      // reqGetList(activityId);
       reqGetDetail(activityId);
     }
   }, [activityId]);
@@ -80,7 +78,6 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   const reqEditTitle = () => {
     apiActivity.update(activityId, { title }).then((result) => {
       setEditTitle((c) => !c);
-      console.log("update title", { result });
     });
   };
 
@@ -103,35 +100,26 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   };
 
   const reqAddTodo = () => {
-    // console.log({ formValues });
-
     const data = {
       activity_group_id: activityId,
       title: formValues?.title,
       priority: formValues?.priority,
     };
 
-    console.log("data to send", { data });
-
     apiTodo
       .add(data)
       .then((result) => {
         setFormValues(defaultFormValues);
         toggleModal();
-        console.log("add result", { result });
         setList((c) => [result, ...c]);
-        // reqGetList(activityId);
       })
       .catch((error) => console.log(error));
   };
 
   const reqEditTodo = (data) => {
-    // console.log("data to send", { data });
-
     apiTodo
       .update(data?.id, data)
       .then((result) => {
-        // console.log("edit result", { result });
         setList((c) => c.map((v) => (v.id === result?.id ? result : v)));
         setFormValues(defaultFormValues);
         setOpenModal(false);
@@ -150,7 +138,6 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
     apiTodo
       .remove(id)
       .then((result) => {
-        console.log("remove todo", { result });
         onSuccess && onSuccess();
         setList((c) => c.filter((v) => v.id !== id));
       })
@@ -159,11 +146,9 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
 
   const onSuccessDelete = () => {
     setDeleteTodo(null);
-    // setOpenModal(false);
     setFormType(4);
   };
 
-  // sort
   const [sortState, setSortState] = useState(sortBy.terbaru);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -196,12 +181,15 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
     <>
       <Header className={classes.mb42} />
       <div className={classes.container}>
-        <Grid
-          container
-          alignItems="center"
-          className={clsx(classes.mb48, editTitle && classes.pt24)}
+        <div
+          className={clsx(
+            classes.flexContainer,
+            classes.spaceBetween,
+            classes.mb48,
+            editTitle && classes.pt24
+          )}
         >
-          <Grid item xs={12} sm container alignItems="center">
+          <div className={classes.flexContainer}>
             <BackIcon
               data-cy="todo-back-button"
               className={classes.iconBtn}
@@ -230,8 +218,8 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
               className={classes.iconBtn}
               onClick={() => setEditTitle((c) => !c)}
             />
-          </Grid>
-          <Grid container justifyContent="flex-end" item xs={12} sm={4}>
+          </div>
+          <div className={classes.flexContainer}>
             <SortButton
               data-cy="todo-sort-button"
               className={classes.iconBtn}
@@ -257,8 +245,8 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
             >
               Tambah
             </Button>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
 
         {(!list || list.length === 0) && (
           <img

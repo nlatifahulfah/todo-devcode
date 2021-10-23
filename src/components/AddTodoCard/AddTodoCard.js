@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as CloseButton } from "assets/icon/modal-add-close-button.svg";
 import clsx from "clsx";
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 9,
   },
   textField: {
+    width: "100%",
     marginBottom: 26,
     "& .MuiInputBase-root": {
       height: 52,
@@ -82,13 +83,11 @@ const AddTodoCard = forwardRef(
           <div data-cy="modal-add-name-title" className={classes.inputLabel}>
             NAMA LIST ITEM
           </div>
-          <TextField
+          <OutlinedInput
             data-cy="modal-add-name-input"
             autoFocus
             value={name}
             onChange={(e) => onChangeName && onChangeName(e.target.value)}
-            variant="outlined"
-            fullWidth
             className={classes.textField}
             placeholder="Tambahkan nama list item"
           />

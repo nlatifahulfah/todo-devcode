@@ -1,15 +1,15 @@
-import { Grid, Modal } from "@material-ui/core";
+import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/styles";
+import * as api from "api/activity";
 import { ReactComponent as PlusIcon } from "assets/icon/tabler_plus.svg";
 import ActivityEmptyImage from "assets/png/activity-empty-state.png";
 import ActivityCard from "components/ActivityCard";
+import AlertActivityCard from "components/AlertActivityCard";
 import Button from "components/Button";
+import ConfirmDeleteCard from "components/ConfirmDeleteCard";
 import Header from "components/Header";
 import Title from "components/Title";
 import { useEffect, useState } from "react";
-import * as api from "api/activity";
-import ConfirmDeleteCard from "components/ConfirmDeleteCard";
-import AlertActivityCard from "components/AlertActivityCard";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -17,9 +17,13 @@ const useStyles = makeStyles(() => ({
     maxWidth: 1000,
     margin: "auto",
   },
-  mb26: { marginBottom: 26 },
+  title: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 42,
+  },
   mb42: { marginBottom: 42 },
-  mb48: { marginBottom: 48 },
   addActivityImg: {
     maxWidth: "100%",
     height: "auto",
@@ -32,6 +36,8 @@ const useStyles = makeStyles(() => ({
     left: "50%",
     transform: "translate(-50%,-50%)",
   },
+  list: { display: "flex", flexWrap: "wrap" },
+  listItem: { margin: "0 12px 26px 0" },
 }));
 
 function Dashboard({ onClickActivity }) {
@@ -42,7 +48,6 @@ function Dashboard({ onClickActivity }) {
     api
       .getList()
       .then((result) => {
-        console.log("list activity", { result });
         if (result?.data) {
           setList(result.data);
         }
@@ -54,7 +59,6 @@ function Dashboard({ onClickActivity }) {
     reqGetList();
   }, []);
 
-  // ---- delete
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState(1); // 1.confirm delete 2.info deleted
   const [activityItem, setActivityItem] = useState(null);
@@ -64,13 +68,11 @@ function Dashboard({ onClickActivity }) {
       .remove(id)
       .then((result) => {
         onSuccess && onSuccess(id);
-        console.log("removed:", { result });
       })
       .catch((error) => console.log({ error }));
 
   const deleteActivity = (v) => {
     setActivityItem(v);
-    // console.log(v);
     setModalType(1);
     setOpenModal(true);
   };
@@ -78,15 +80,12 @@ function Dashboard({ onClickActivity }) {
   const onSuccessDelete = (id) => {
     setList((c) => c.filter((v) => v.id !== id));
     setModalType(2);
-    // setOpenModal(false);
   };
 
-  // ---add
   const reqAddActivity = () =>
     api
       .add("New Activity")
       .then((result) => {
-        console.log("add", { result });
         if (result) {
           setList((c) => [...c, result]);
           reqGetList();
@@ -98,12 +97,7 @@ function Dashboard({ onClickActivity }) {
     <div style={{ position: "relative" }}>
       <Header className={classes.mb42} />
       <div className={classes.container}>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          className={classes.mb42}
-        >
+        <div className={classes.title}>
           <Title data-cy="activity-title">Activity</Title>
           <Button
             data-cy="activity-add-button"
@@ -113,7 +107,7 @@ function Dashboard({ onClickActivity }) {
           >
             Tambah
           </Button>
-        </Grid>
+        </div>
         {(!list || list.length === 0) && (
           <img
             data-cy="activity-empty-state"
@@ -124,20 +118,19 @@ function Dashboard({ onClickActivity }) {
           />
         )}
         {list?.length > 0 && (
-          <Grid container>
+          <div className={classes.list}>
             {list?.length > 0 &&
               list.map((v) => (
-                <Grid item key={v.id} md={3}>
-                  <ActivityCard
-                    title={v.title}
-                    date={v.created_at}
-                    className={classes.mb26}
-                    onClick={() => onClickActivity && onClickActivity(v)}
-                    onClickDelete={() => deleteActivity(v)}
-                  />
-                </Grid>
+                <ActivityCard
+                  key={v.id}
+                  className={classes.listItem}
+                  title={v.title}
+                  date={v.created_at}
+                  onClick={() => onClickActivity && onClickActivity(v)}
+                  onClickDelete={() => deleteActivity(v)}
+                />
               ))}
-          </Grid>
+          </div>
         )}
       </div>
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
