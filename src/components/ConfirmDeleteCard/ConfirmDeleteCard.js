@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 import Button from "components/Button";
 import { ReactComponent as DeleteIcon } from "assets/icon/modal-delete-icon.svg";
 import clsx from "clsx";
+import { forwardRef } from "react";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "12px",
     padding: "50px 58px 43px",
+    // margin: "20px auto",
   },
   buttonGroup: {
     display: "flex",
@@ -34,31 +36,33 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ConfirmDeleteCard({
-  item,
-  itemTitle,
-  onClickBatal,
-  onClickHapus,
-}) {
-  const classes = useStyles();
+const ConfirmDeleteCard = forwardRef(
+  (
+    { item, itemTitle, onClickBatal, onClickHapus, className, ...props },
+    ref
+  ) => {
+    const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <DeleteIcon className={classes.mb50} />
-      <div className={classes.text}>Apakah anda yakin menghapus {item}</div>
-      <div className={clsx(classes.text, classes.bold)}>"{itemTitle}"?</div>
-      <div className={classes.buttonGroup}>
-        <Button className={classes.mx10} onClick={onClickBatal}>
-          Batal
-        </Button>
-        <Button
-          color="secondary"
-          className={classes.mx10}
-          onClick={onClickBatal}
-        >
-          Hapus
-        </Button>
+    return (
+      <div ref={ref} className={clsx(classes.root, className)} {...props}>
+        <DeleteIcon className={classes.mb50} />
+        <div className={classes.text}>Apakah anda yakin menghapus {item}</div>
+        <div className={clsx(classes.text, classes.bold)}>"{itemTitle}"?</div>
+        <div className={classes.buttonGroup}>
+          <Button className={classes.mx10} onClick={onClickBatal}>
+            Batal
+          </Button>
+          <Button
+            color="secondary"
+            className={classes.mx10}
+            onClick={onClickHapus}
+          >
+            Hapus
+          </Button>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default ConfirmDeleteCard;

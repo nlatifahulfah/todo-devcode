@@ -40,7 +40,10 @@ function ActivityCard({ title, date, onClick, onClickDelete, className }) {
       <div className={classes.title}>{title}</div>
       <Grid container justifyContent="space-between" alignItems="center">
         <div className={classes.date}>{formatDate(date)}</div>
-        <DeleteIcon className={onClickDelete && classes.pointer} />
+        <DeleteIcon
+          className={onClickDelete && classes.pointer}
+          onClick={onClickDelete}
+        />
       </Grid>
     </Card>
   );
