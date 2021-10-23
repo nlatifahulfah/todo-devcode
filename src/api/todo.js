@@ -8,14 +8,6 @@ const detailUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 const removeUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 const updateUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 
-/**
- * list of priority is : very-high, high, normal, low, very-low | defalut value is very-high
- * {
- *    activity_group_id: 5,
- *    title: '',
- *    priority:
- * }
- */
 const add = (data) =>
   fetch(addUrl(), {
     method: "POST",
@@ -27,21 +19,9 @@ const add = (data) =>
 
 const getDetail = (id) => fetch(detailUrl(id)).then((res) => res.json());
 
-const getList = (activity_id) =>
-  fetch(listUrl(activity_id)).then((res) => res.json());
-
 const remove = (id) =>
   fetch(removeUrl(id), { method: "DELETE" }).then((res) => res.json());
 
-/**
- * list of priority is : very-high, high, normal, low, very-low
- *
- * {
- *    title: '',
- *    is_active: 1,
- *    priority: 'normal'
- * }
- */
 const update = (id, data) =>
   fetch(updateUrl(id), {
     method: "PATCH",
@@ -51,4 +31,4 @@ const update = (id, data) =>
     body: JSON.stringify(data),
   }).then((res) => res.json());
 
-export { add, getList, getDetail, remove, update };
+export { add, getDetail, remove, update };

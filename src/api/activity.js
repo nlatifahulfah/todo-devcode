@@ -9,12 +9,6 @@ const detailUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 const removeUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 const updateUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 
-/**
- * {
- *    title: '',
- *    email:
- * }
- */
 const add = (title) =>
   fetch(addUrl(), {
     method: "POST",
@@ -31,11 +25,6 @@ const getList = () => fetch(listUrl()).then((res) => res.json());
 const remove = (id) =>
   fetch(removeUrl(id), { method: "DELETE" }).then((res) => res.json());
 
-/**
- * {
- *    title:''
- * }
- */
 const update = (id, data) =>
   fetch(updateUrl(id), {
     method: "PATCH",

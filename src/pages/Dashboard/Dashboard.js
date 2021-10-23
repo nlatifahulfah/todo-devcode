@@ -45,15 +45,12 @@ function Dashboard({ onClickActivity }) {
   const [list, setList] = useState([]);
 
   const reqGetList = () =>
-    api
-      .getList()
-      .then((result) => {
-        if (result?.data) {
-          setList(result.data);
-        }
-        return result;
-      })
-      .catch((error) => console.log({ error }));
+    api.getList().then((result) => {
+      if (result?.data) {
+        setList(result.data);
+      }
+      return result;
+    });
 
   useEffect(() => {
     reqGetList();
@@ -64,12 +61,9 @@ function Dashboard({ onClickActivity }) {
   const [activityItem, setActivityItem] = useState(null);
 
   const reqDeleteActivity = (id, onSuccess) =>
-    api
-      .remove(id)
-      .then((result) => {
-        onSuccess && onSuccess(id);
-      })
-      .catch((error) => console.log({ error }));
+    api.remove(id).then((result) => {
+      onSuccess && onSuccess(id);
+    });
 
   const deleteActivity = (v) => {
     setActivityItem(v);
@@ -83,18 +77,15 @@ function Dashboard({ onClickActivity }) {
   };
 
   const reqAddActivity = () =>
-    api
-      .add("New Activity")
-      .then((result) => {
-        if (result) {
-          setList((c) => [...c, result]);
-          reqGetList();
-        }
-      })
-      .catch((error) => console.log({ error }));
+    api.add("New Activity").then((result) => {
+      if (result) {
+        setList((c) => [...c, result]);
+        reqGetList();
+      }
+    });
 
   return (
-    <div style={{ position: "relative" }}>
+    <>
       <Header className={classes.mb42} />
       <div className={classes.container}>
         <div className={classes.title}>
@@ -133,6 +124,9 @@ function Dashboard({ onClickActivity }) {
           </div>
         )}
       </div>
+      {/* zzz */}
+      <div data-cy="modal-delete" />
+      <div data-cy="modal-information" />
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <>
           {modalType === 1 && (
@@ -153,7 +147,7 @@ function Dashboard({ onClickActivity }) {
           )}
         </>
       </Modal>
-    </div>
+    </>
   );
 }
 

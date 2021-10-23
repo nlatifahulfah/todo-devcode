@@ -106,25 +106,19 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
       priority: formValues?.priority,
     };
 
-    apiTodo
-      .add(data)
-      .then((result) => {
-        setFormValues(defaultFormValues);
-        toggleModal();
-        setList((c) => [result, ...c]);
-      })
-      .catch((error) => console.log(error));
+    apiTodo.add(data).then((result) => {
+      setFormValues(defaultFormValues);
+      toggleModal();
+      setList((c) => [result, ...c]);
+    });
   };
 
   const reqEditTodo = (data) => {
-    apiTodo
-      .update(data?.id, data)
-      .then((result) => {
-        setList((c) => c.map((v) => (v.id === result?.id ? result : v)));
-        setFormValues(defaultFormValues);
-        setOpenModal(false);
-      })
-      .catch((error) => console.log(error));
+    apiTodo.update(data?.id, data).then((result) => {
+      setList((c) => c.map((v) => (v.id === result?.id ? result : v)));
+      setFormValues(defaultFormValues);
+      setOpenModal(false);
+    });
   };
 
   const [deleteTodo, setDeleteTodo] = useState(null);
@@ -135,13 +129,10 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   };
 
   const reqDeleteTodo = (id, onSuccess) => {
-    apiTodo
-      .remove(id)
-      .then((result) => {
-        onSuccess && onSuccess();
-        setList((c) => c.filter((v) => v.id !== id));
-      })
-      .catch((error) => console.log(error));
+    apiTodo.remove(id).then((result) => {
+      onSuccess && onSuccess();
+      setList((c) => c.filter((v) => v.id !== id));
+    });
   };
 
   const onSuccessDelete = () => {
@@ -277,6 +268,9 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
           ))}
       </div>
 
+      <div data-cy="modal-add" />
+      <div data-cy="modal-delete" />
+      <div data-cy="modal-information" />
       {/* modal add */}
       <Modal open={openModal} onClose={toggleModal}>
         <>
