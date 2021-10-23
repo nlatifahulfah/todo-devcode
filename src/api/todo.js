@@ -1,8 +1,6 @@
 const API_URL = process.env.REACT_APP_API;
 const BASE_PATH = "/todo-items";
 
-const listUrl = (activity_id) =>
-  `${API_URL}${BASE_PATH}?activity_group_id=${activity_id}`;
 const addUrl = () => `${API_URL}${BASE_PATH}`;
 const detailUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 const removeUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
