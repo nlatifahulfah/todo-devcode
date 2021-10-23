@@ -8,6 +8,7 @@ import { ReactComponent as SortButton } from "assets/icon/todo-sort-button.svg";
 import TodoEmptyImage from "assets/png/todo-empty-state.png";
 import clsx from "clsx";
 import AddTodoCard from "components/AddTodoCard";
+import AlertActivityCard from "components/AlertActivityCard";
 import Button from "components/Button";
 import ConfirmDeleteCard from "components/ConfirmDeleteCard";
 import Header from "components/Header";
@@ -73,7 +74,7 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   };
 
   const [openModal, setOpenModal] = useState(false);
-  const [formType, setFormType] = useState(1); // 1.add todo, 2.edit todo, 3.delete todo
+  const [formType, setFormType] = useState(1); // 1.add todo, 2.edit todo, 3.delete todo, 4. info
   const toggleModal = () => setOpenModal((c) => !c);
 
   const [formValues, setFormValues] = useState(defaultFormValues);
@@ -146,7 +147,8 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
 
   const onSuccessDelete = () => {
     setDeleteTodo(null);
-    setOpenModal(false);
+    // setOpenModal(false);
+    setFormType(4);
   };
 
   // sort
@@ -283,6 +285,12 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
               }
               className={classes.modalConfirm}
             />
+          )}
+
+          {formType === 4 && (
+            <div style={{ maxWidth: 490 }} className={classes.modalConfirm}>
+              <AlertActivityCard text="Item berhasil dihapus" />
+            </div>
           )}
         </>
       </Modal>

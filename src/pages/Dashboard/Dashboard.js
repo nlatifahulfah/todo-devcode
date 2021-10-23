@@ -9,6 +9,7 @@ import Title from "components/Title";
 import { useEffect, useState } from "react";
 import * as api from "api/activity";
 import ConfirmDeleteCard from "components/ConfirmDeleteCard";
+import AlertActivityCard from "components/AlertActivityCard";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -51,7 +52,8 @@ function Dashboard({ onClickActivity }) {
   }, []);
 
   // ---- delete
-  const [openConfirm, setOpenConfirm] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalType, setModalType] = useState(1); // 1.confirm delete 2.info deleted
   const [activityItem, setActivityItem] = useState(null);
 
   const reqDeleteActivity = (id, onSuccess) =>
@@ -66,12 +68,14 @@ function Dashboard({ onClickActivity }) {
   const deleteActivity = (v) => {
     setActivityItem(v);
     // console.log(v);
-    setOpenConfirm(true);
+    setModalType(1);
+    setOpenModal(true);
   };
 
   const onSuccessDelete = (id) => {
     setList((c) => c.filter((v) => v.id !== id));
-    setOpenConfirm(false);
+    setModalType(2);
+    // setOpenModal(false);
   };
 
   // ---add
@@ -129,16 +133,25 @@ function Dashboard({ onClickActivity }) {
           </Grid>
         )}
       </div>
-      <Modal open={openConfirm} onClose={() => setOpenConfirm(false)}>
-        <ConfirmDeleteCard
-          item="activity"
-          itemTitle={activityItem?.title}
-          onClickBatal={() => setOpenConfirm(false)}
-          onClickHapus={() =>
-            reqDeleteActivity(activityItem?.id, onSuccessDelete)
-          }
-          className={classes.modalConfirm}
-        />
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <>
+          {modalType === 1 && (
+            <ConfirmDeleteCard
+              item="activity"
+              itemTitle={activityItem?.title}
+              onClickBatal={() => setOpenModal(false)}
+              onClickHapus={() =>
+                reqDeleteActivity(activityItem?.id, onSuccessDelete)
+              }
+              className={classes.modalConfirm}
+            />
+          )}
+          {modalType === 2 && (
+            <div style={{ maxWidth: 490 }} className={classes.modalConfirm}>
+              <AlertActivityCard text="Activity berhasil dihapus" />
+            </div>
+          )}
+        </>
       </Modal>
     </div>
   );
