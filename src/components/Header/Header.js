@@ -29,7 +29,7 @@ function Header({ className }) {
       className={clsx(classes.headerBackground, className)}
     >
       <div data-cy="header-title" className={classes.headerTitle}>
-        To Do List App
+        TO DO LIST APP
       </div>
     </div>
   );
