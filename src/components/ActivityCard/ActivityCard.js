@@ -1,9 +1,9 @@
-import { Card, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import PropTypes from "prop-types";
 import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
-import { formatDate } from "helper/format";
 import clsx from "clsx";
+import { formatDate } from "helper/format";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   card: {

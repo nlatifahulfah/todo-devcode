@@ -61,15 +61,34 @@ export default function TodoCard({
   return (
     <div className={clsx(classes.root, className)}>
       <div className={classes.todo}>
-        <Checkbox color="primary" checked={isDone} onClick={onClickCheckbox} />
+        <Checkbox
+          color="primary"
+          checked={isDone}
+          onChange={(e) => {
+            console.log("checkbox");
+            e.stopPropagation();
+            onClickCheckbox && onClickCheckbox(e);
+          }}
+        />
         <div
           className={classes.priorityIndicator}
           style={{ background: todoPriority[priority]?.color }}
         />
         <div className={classes.title}>{title}</div>
-        <EditIcon onClick={onClickEdit} />
+        <EditIcon
+          onClick={(e) => {
+            console.log("edit");
+            e.stopPropagation();
+            onClickEdit && onClickEdit(e);
+          }}
+        />
       </div>
-      <DeleteIcon onClick={onClickDelete} />
+      <DeleteIcon
+        onClick={(e) => {
+          e.stopPropagation();
+          onClickDelete && onClickDelete(e);
+        }}
+      />
     </div>
   );
 }

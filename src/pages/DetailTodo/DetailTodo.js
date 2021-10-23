@@ -1,26 +1,22 @@
-import {
-  Grid,
-  IconButton,
-  makeStyles,
-  Modal,
-  TextField,
-} from "@material-ui/core";
-import Header from "components/Header";
-import TodoEmptyImage from "assets/png/todo-empty-state.png";
-import Title from "components/Title";
-import { ReactComponent as PlusIcon } from "assets/icon/tabler_plus.svg";
-import { ReactComponent as EditIcon } from "assets/icon/edit-button.svg";
-import { ReactComponent as BackIcon } from "assets/icon/back-button.svg";
-import { ReactComponent as SortButton } from "assets/icon/todo-sort-button.svg";
-import Button from "components/Button";
-import { useEffect, useState } from "react";
-import TitleTextField from "components/TitleTextField";
-import * as apiTodo from "api/todo";
+import { Grid, makeStyles, Modal, Popper } from "@material-ui/core";
 import * as apiActivity from "api/activity";
+import * as apiTodo from "api/todo";
+import { ReactComponent as BackIcon } from "assets/icon/back-button.svg";
+import { ReactComponent as EditIcon } from "assets/icon/edit-button.svg";
+import { ReactComponent as PlusIcon } from "assets/icon/tabler_plus.svg";
+import { ReactComponent as SortButton } from "assets/icon/todo-sort-button.svg";
+import TodoEmptyImage from "assets/png/todo-empty-state.png";
 import clsx from "clsx";
-import TodoCard from "components/TodoCard";
 import AddTodoCard from "components/AddTodoCard";
-import { todoPriority } from "components/TodoCard/TodoCard";
+import Button from "components/Button";
+import ConfirmDeleteCard from "components/ConfirmDeleteCard";
+import Header from "components/Header";
+import SortCard from "components/SortCard";
+import { sortBy } from "components/SortCard/SortCard";
+import Title from "components/Title";
+import TitleTextField from "components/TitleTextField";
+import TodoCard from "components/TodoCard";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -77,10 +73,10 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   };
 
   const [openModal, setOpenModal] = useState(false);
+  const [formType, setFormType] = useState(1); // 1.add todo, 2.edit todo, 3.delete todo
   const toggleModal = () => setOpenModal((c) => !c);
 
   const [formValues, setFormValues] = useState(defaultFormValues);
-  const [formType, setFormType] = useState(1);
 
   const openAdd = () => {
     setFormValues(defaultFormValues);
@@ -111,29 +107,75 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
         setFormValues(defaultFormValues);
         toggleModal();
         console.log("add result", { result });
-        setList((c) => c.concat(result));
+        setList((c) => [result, ...c]);
       })
       .catch((error) => console.log(error));
   };
 
-  const reqEditTodo = () => {
-    const data = {
-      title: formValues?.title,
-      is_active: formValues?.is_active,
-      priority: formValues?.priority,
-    };
-
-    console.log("data to send", { data });
+  const reqEditTodo = (data) => {
+    // console.log("data to send", { data });
 
     apiTodo
-      .update(formValues?.id, data)
+      .update(data?.id, data)
       .then((result) => {
-        console.log("edit result", { result });
-        setList((c) => c.map((v) => (v.id === formValues?.id ? result : v)));
+        // console.log("edit result", { result });
+        setList((c) => c.map((v) => (v.id === result?.id ? result : v)));
         setFormValues(defaultFormValues);
-        toggleModal();
+        setOpenModal(false);
       })
       .catch((error) => console.log(error));
+  };
+
+  const [deleteTodo, setDeleteTodo] = useState(null);
+  const confirmDelete = (v) => {
+    setDeleteTodo(v);
+    setOpenModal(true);
+    setFormType(3);
+  };
+
+  const reqDeleteTodo = (id, onSuccess) => {
+    apiTodo
+      .remove(id)
+      .then((result) => {
+        console.log("remove todo", { result });
+        onSuccess && onSuccess();
+        setList((c) => c.filter((v) => v.id !== id));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const onSuccessDelete = () => {
+    setDeleteTodo(null);
+    setOpenModal(false);
+  };
+
+  // sort
+  const [sortState, setSortState] = useState(sortBy.terbaru);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const onClickSort = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+  const openSortMenu = Boolean(anchorEl);
+  const id = openSortMenu ? "simple-popper" : undefined;
+
+  const sortListBy = (type) => {
+    if (type === sortBy.terbaru) {
+      setList((c) => c.sort(compareTerbaru));
+      setSortState(sortBy.terbaru);
+    } else if (type === sortBy.terlama) {
+      setList((c) => c.sort(compareTerlama));
+      setSortState(sortBy.terlama);
+    } else if (type === sortBy.az) {
+      setList((c) => c.sort(compareAZ));
+      setSortState(sortBy.az);
+    } else if (type === sortBy.za) {
+      setList((c) => c.sort(compareZA));
+      setSortState(sortBy.za);
+    } else if (type === sortBy.belumSelesai) {
+      setList((c) => c.sort(compareBelumSelesai));
+      setSortState(sortBy.belumSelesai);
+    }
   };
 
   return (
@@ -166,7 +208,22 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
             />
           </Grid>
           <Grid container justifyContent="flex-end" item xs={12} sm={4}>
-            <SortButton className={classes.iconBtn} />
+            <SortButton
+              className={classes.iconBtn}
+              aria-describedby={id}
+              type="button"
+              onClick={onClickSort}
+            />
+            <Popper id={id} open={openSortMenu} anchorEl={anchorEl}>
+              <SortCard
+                value={sortState}
+                onChange={(v) => {
+                  sortListBy(v);
+                  onClickSort();
+                }}
+              />
+            </Popper>
+
             <Button color="primary" startIcon={<PlusIcon />} onClick={openAdd}>
               Tambah
             </Button>
@@ -185,30 +242,80 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
               priority={v.priority}
               title={v.title}
               onClickEdit={() => openEdit(v)}
-              // onClickDelete={() => deleteTodo(v)}
-              // onClickCheckbox={() => setDoneTodo(v)}
+              onClickDelete={() => confirmDelete(v)}
+              onClickCheckbox={() =>
+                reqEditTodo({
+                  ...v,
+                  is_active: !v?.is_active,
+                })
+              }
             />
           ))}
       </div>
 
       {/* modal add */}
       <Modal open={openModal} onClose={toggleModal}>
-        {/* <div className={classes.modalConfirm}>Tes</div> */}
-        <AddTodoCard
-          className={classes.modalConfirm}
-          onClose={toggleModal}
-          name={formValues.title}
-          priority={formValues.priority}
-          onChangeName={(title) => setFormValues((c) => ({ ...c, title }))}
-          onChangePriority={(priority) =>
-            setFormValues((c) => ({ ...c, priority }))
-          }
-          onSubmit={() => {
-            if (formType === 1) reqAddTodo();
-            if (formType === 2) reqEditTodo();
-          }}
-        />
+        <>
+          {(formType === 1 || formType === 2) && (
+            <AddTodoCard
+              className={classes.modalConfirm}
+              onClose={toggleModal}
+              name={formValues.title}
+              priority={formValues.priority}
+              onChangeName={(title) => setFormValues((c) => ({ ...c, title }))}
+              onChangePriority={(priority) =>
+                setFormValues((c) => ({ ...c, priority }))
+              }
+              onSubmit={() => {
+                if (formType === 1) reqAddTodo();
+                if (formType === 2) reqEditTodo(formValues);
+              }}
+            />
+          )}
+
+          {formType === 3 && (
+            <ConfirmDeleteCard
+              item="List Item"
+              itemTitle={deleteTodo?.title}
+              onClickBatal={() => setOpenModal(false)}
+              onClickHapus={() =>
+                reqDeleteTodo(deleteTodo?.id, onSuccessDelete)
+              }
+              className={classes.modalConfirm}
+            />
+          )}
+        </>
       </Modal>
     </>
   );
+}
+
+function compareTerbaru(a, b) {
+  if (a.id > b.id) return -1; // lebih baru
+  if (a.id < b.id) return 1;
+  return 0;
+}
+
+function compareTerlama(a, b) {
+  if (a.id < b.id) return -1; // lebih lama
+  if (a.id > b.id) return 1;
+  return 0;
+}
+
+function compareAZ(a, b) {
+  const result = a.title.localeCompare(b.title);
+
+  return result;
+}
+
+function compareZA(a, b) {
+  const result = a.title.localeCompare(b.title);
+
+  return result * -1;
+}
+
+function compareBelumSelesai(a, b) {
+  if (!a.is_active && b.is_active) return 1;
+  if (a.is_active && !b.is_active) return -1;
+  return 0;
 }

@@ -28,31 +28,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SortCard() {
+export const sortBy = {
+  terbaru: 1,
+  terlama: 2,
+  az: 3,
+  za: 4,
+  belumSelesai: 5,
+};
+
+export default function SortCard({ value, onChange }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <div className={classes.sortItem}>
+      <div
+        className={classes.sortItem}
+        onClick={() => onChange && onChange(sortBy.terbaru)}
+      >
         <TerbaruIcon />
         <div className={classes.itemText}>Terbaru</div>
-        <SelectedIcon />
+        {value === sortBy.terbaru && <SelectedIcon />}
       </div>
-      <div className={classes.sortItem}>
+      <div
+        className={classes.sortItem}
+        onClick={() => onChange && onChange(sortBy.terlama)}
+      >
         <TerlamaIcon />
         <div className={classes.itemText}>Terlama</div>
+        {value === sortBy.terlama && <SelectedIcon />}
       </div>
-      <div className={classes.sortItem}>
+      <div
+        className={classes.sortItem}
+        onClick={() => onChange && onChange(sortBy.az)}
+      >
         <AZIcon />
         <div className={classes.itemText}>A-Z</div>
+        {value === sortBy.az && <SelectedIcon />}
       </div>
-      <div className={classes.sortItem}>
+      <div
+        className={classes.sortItem}
+        onClick={() => onChange && onChange(sortBy.za)}
+      >
         <ZAIcon />
         <div className={classes.itemText}>Z-A</div>
+        {value === sortBy.za && <SelectedIcon />}
       </div>
-      <div className={classes.sortItem}>
+      <div
+        className={classes.sortItem}
+        onClick={() => onChange && onChange(sortBy.belumSelesai)}
+      >
         <BelumSelesaiIcon />
         <div className={classes.itemText}>Belum Selesai</div>
+        {value === sortBy.belumSelesai && <SelectedIcon />}
       </div>
     </div>
   );
