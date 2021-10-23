@@ -54,11 +54,11 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   const classes = useStyles();
   const [list, setList] = useState([]);
 
-  const reqGetList = (activityId) =>
-    apiTodo.getList(activityId).then((result) => {
-      setList(result.data);
-      console.log({ result });
-    });
+  // const reqGetList = (activityId) =>
+  //   apiTodo.getList(activityId).then((result) => {
+  //     setList(result.data);
+  //     console.log({ result });
+  //   });
 
   const reqGetDetail = (activityId) =>
     apiActivity.getDetail(activityId).then((result) => {
