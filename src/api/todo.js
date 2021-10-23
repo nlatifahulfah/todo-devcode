@@ -9,9 +9,11 @@ const removeUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 const updateUrl = (id) => `${API_URL}${BASE_PATH}/${id}`;
 
 /**
+ * list of priority is : very-high, high, normal, low, very-low | defalut value is very-high
  * {
  *    activity_group_id: 5,
- *    title: ''
+ *    title: '',
+ *    priority:
  * }
  */
 const add = (data) =>

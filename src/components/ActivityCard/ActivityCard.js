@@ -36,16 +36,21 @@ function ActivityCard({ title, date, onClick, onClickDelete, className }) {
   const classes = useStyles();
 
   return (
-    <Card className={clsx(classes.card, onClick && classes.pointer, className)}>
+    <div
+      className={clsx(classes.card, onClick && classes.pointer, className)}
+      onClick={onClick}
+    >
       <div className={classes.title}>{title}</div>
       <Grid container justifyContent="space-between" alignItems="center">
         <div className={classes.date}>{formatDate(date)}</div>
         <DeleteIcon
-          className={onClickDelete && classes.pointer}
-          onClick={onClickDelete}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClickDelete && onClickDelete();
+          }}
         />
       </Grid>
-    </Card>
+    </div>
   );
 }
 

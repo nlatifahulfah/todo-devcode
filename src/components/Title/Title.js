@@ -8,9 +8,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Title = ({ children }) => {
+const Title = ({ children, ...props }) => {
   const classes = useStyles();
-  return <h1 className={classes.root}>{children}</h1>;
+  return (
+    <h1 className={classes.root} {...props}>
+      {children}
+    </h1>
+  );
 };
 
 export default Title;

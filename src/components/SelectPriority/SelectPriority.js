@@ -66,9 +66,9 @@ export default function SelectPriority({ selected, onSelect }) {
         <div className={classes.priorityItem}>
           <div
             className={classes.priorityIndicator}
-            style={{ background: "#ED4C5C" }}
+            style={{ background: todoPriority[selected]?.color }}
           />
-          <div className={classes.text}>Very High</div>
+          <div className={classes.text}>{todoPriority[selected]?.label}</div>
         </div>
         <ChevronDown onClick={() => setOpen((c) => !c)} />
       </div>
@@ -85,21 +85,22 @@ export default function SelectPriority({ selected, onSelect }) {
           </div>
           {Object.entries(todoPriority).map(([key, val], i, arr) => (
             <div
+              key={i}
               className={clsx(
                 classes.itemContainer,
                 i + 1 < arr.length && classes.divider
               )}
               onClick={() => {
-                onSelect && onSelect(val);
+                onSelect && onSelect(key);
                 setOpen((c) => !c);
               }}
             >
               <div className={classes.priorityItem}>
                 <div
                   className={classes.priorityIndicator}
-                  style={{ background: val }}
+                  style={{ background: val.color }}
                 />
-                <div className={classes.text}>{key}</div>
+                <div className={classes.text}>{val.label}</div>
               </div>
               {selected === val && <SelectedIcon />}
             </div>
@@ -110,5 +111,5 @@ export default function SelectPriority({ selected, onSelect }) {
   );
 }
 SelectPriority.propTypes = {
-  selected: PropTypes.oneOf(Object.values(todoPriority)),
+  selected: PropTypes.oneOf(Object.keys(todoPriority)),
 };

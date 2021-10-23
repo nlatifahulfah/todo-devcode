@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Dashboard() {
+function Dashboard({ onClickActivity }) {
   const classes = useStyles();
   const [list, setList] = useState([]);
 
@@ -41,7 +41,7 @@ function Dashboard() {
     api
       .getList()
       .then((result) => {
-        console.log({ result });
+        console.log("list activity", { result });
         if (result?.data) {
           setList(result.data);
         }
@@ -65,7 +65,7 @@ function Dashboard() {
 
   const deleteActivity = (v) => {
     setActivityItem(v);
-    console.log(v);
+    // console.log(v);
     setOpenConfirm(true);
   };
 
@@ -121,6 +121,7 @@ function Dashboard() {
                     title={v.title}
                     date={v.created_at}
                     className={classes.mb26}
+                    onClick={() => onClickActivity && onClickActivity(v)}
                     onClickDelete={() => deleteActivity(v)}
                   />
                 </Grid>

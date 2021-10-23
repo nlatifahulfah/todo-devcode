@@ -2,16 +2,25 @@ import Dashboard from "pages/Dashboard";
 import DetailTodo from "pages/DetailTodo";
 import { useState } from "react";
 
-const pages = {
-  dashboard: 1,
-  detail: 2,
-};
 function App() {
-  const [page, setPage] = useState(pages.dashboard);
+  const [activity, setActivity] = useState(null);
 
-  if (page === pages.dashboard) return <Dashboard />;
+  if (!activity)
+    return (
+      <Dashboard
+        onClickActivity={(activity) => {
+          setActivity(activity);
+        }}
+      />
+    );
 
-  return <DetailTodo />;
+  return (
+    <DetailTodo
+      activityId={activity?.id}
+      activityTitle={activity?.title}
+      onClickBack={() => setActivity(null)}
+    />
+  );
 }
 
 export default App;
