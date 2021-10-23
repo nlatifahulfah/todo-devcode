@@ -38,7 +38,7 @@ function Dashboard({ onClickActivity }) {
   const classes = useStyles();
   const [list, setList] = useState([]);
 
-  useEffect(() => {
+  const reqGetList = () =>
     api
       .getList()
       .then((result) => {
@@ -49,6 +49,9 @@ function Dashboard({ onClickActivity }) {
         return result;
       })
       .catch((error) => console.log({ error }));
+
+  useEffect(() => {
+    reqGetList();
   }, []);
 
   // ---- delete
@@ -86,6 +89,7 @@ function Dashboard({ onClickActivity }) {
         console.log("add", { result });
         if (result) {
           setList((c) => [...c, result]);
+          reqGetList();
         }
       })
       .catch((error) => console.log({ error }));

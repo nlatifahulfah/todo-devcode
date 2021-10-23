@@ -54,12 +54,15 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
   const classes = useStyles();
   const [list, setList] = useState([]);
 
+  const reqGetList = (activityId) =>
+    apiTodo.getList(activityId).then((result) => {
+      setList(result.data);
+      console.log({ result });
+    });
+
   useEffect(() => {
     if (activityId) {
-      apiTodo.getList(activityId).then((result) => {
-        setList(result.data);
-        console.log({ result });
-      });
+      reqGetList(activityId);
     }
   }, [activityId]);
 
@@ -109,6 +112,7 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
         toggleModal();
         console.log("add result", { result });
         setList((c) => [result, ...c]);
+        reqGetList(activityId);
       })
       .catch((error) => console.log(error));
   };
