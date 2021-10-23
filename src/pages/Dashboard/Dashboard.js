@@ -127,7 +127,13 @@ function Dashboard({ onClickActivity }) {
           <Grid container>
             {list?.length > 0 &&
               list.map((v) => (
-                <Grid item key={v.id} md={3}>
+                <Grid
+                  item
+                  key={v.id}
+                  md={3}
+                  data-cy="activity-item"
+                  onClick={() => onClickActivity && onClickActivity(v)}
+                >
                   <ActivityCard
                     title={v.title}
                     date={v.created_at}
