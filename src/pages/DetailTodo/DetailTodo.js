@@ -196,7 +196,7 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
         >
           <Grid item xs={12} sm container alignItems="center">
             <BackIcon
-              data-cy="todo-item-delete-button"
+              data-cy="todo-back-button"
               className={classes.iconBtn}
               onClick={onClickBack}
             />
