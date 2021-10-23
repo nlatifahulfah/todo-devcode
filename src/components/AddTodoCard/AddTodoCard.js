@@ -67,14 +67,23 @@ const AddTodoCard = forwardRef(
     const classes = useStyles();
 
     return (
-      <div ref={ref} className={clsx(classes.root, className)}>
+      <div
+        data-cy="modal-add"
+        ref={ref}
+        className={clsx(classes.root, className)}
+      >
         <div className={classes.titleContainer}>
-          <div className={classes.titleText}>Tambah List Item</div>
-          <CloseButton onClick={onClose} />
+          <div data-cy="modal-add-title" className={classes.titleText}>
+            Tambah List Item
+          </div>
+          <CloseButton data-cy="modal-add-close-button" onClick={onClose} />
         </div>
         <div className={classes.fieldContainer}>
-          <div className={classes.inputLabel}>NAMA LIST ITEM</div>
+          <div data-cy="modal-add-name-title" className={classes.inputLabel}>
+            NAMA LIST ITEM
+          </div>
           <TextField
+            data-cy="modal-add-name-input"
             autoFocus
             value={name}
             onChange={(e) => onChangeName && onChangeName(e.target.value)}
@@ -83,14 +92,24 @@ const AddTodoCard = forwardRef(
             className={classes.textField}
             placeholder="Tambahkan nama list item"
           />
-          <div className={classes.inputLabel}>PRIORITY</div>
+          <div
+            data-cy="modal-add-priority-title"
+            className={classes.inputLabel}
+          >
+            PRIORITY
+          </div>
           <SelectPriority
             selected={priority}
             onSelect={(v) => onChangePriority && onChangePriority(v)}
           />
         </div>
         <div className={classes.buttonContainer}>
-          <Button color="primary" disabled={!Boolean(name)} onClick={onSubmit}>
+          <Button
+            data-cy="modal-add-save-button"
+            color="primary"
+            disabled={!Boolean(name)}
+            onClick={onSubmit}
+          >
             Simpan
           </Button>
         </div>

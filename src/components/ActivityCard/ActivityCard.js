@@ -37,13 +37,19 @@ function ActivityCard({ title, date, onClick, onClickDelete, className }) {
 
   return (
     <div
+      data-cy="activity-item"
       className={clsx(classes.card, onClick && classes.pointer, className)}
       onClick={onClick}
     >
-      <div className={classes.title}>{title}</div>
+      <div data-cy="activity-item-title" className={classes.title}>
+        {title}
+      </div>
       <Grid container justifyContent="space-between" alignItems="center">
-        <div className={classes.date}>{formatDate(date)}</div>
+        <div data-cy="activity-item-date" className={classes.date}>
+          {formatDate(date)}
+        </div>
         <DeleteIcon
+          data-cy="activity-item-delete-button"
           onClick={(e) => {
             e.stopPropagation();
             onClickDelete && onClickDelete();

@@ -190,10 +190,19 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
           className={clsx(classes.mb48, editTitle && classes.pt24)}
         >
           <Grid item xs={12} sm container alignItems="center">
-            <BackIcon className={classes.iconBtn} onClick={onClickBack} />
+            <BackIcon
+              data-cy="todo-item-delete-button"
+              className={classes.iconBtn}
+              onClick={onClickBack}
+            />
 
             {!editTitle && (
-              <Title onClick={() => setEditTitle((c) => !c)}>{title}</Title>
+              <Title
+                data-cy="todo-title"
+                onClick={() => setEditTitle((c) => !c)}
+              >
+                {title}
+              </Title>
             )}
             {editTitle && (
               <TitleTextField
@@ -205,12 +214,14 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
             )}
 
             <EditIcon
+              data-cy="todo-title-edit-button"
               className={classes.iconBtn}
               onClick={() => setEditTitle((c) => !c)}
             />
           </Grid>
           <Grid container justifyContent="flex-end" item xs={12} sm={4}>
             <SortButton
+              data-cy="todo-sort-button"
               className={classes.iconBtn}
               aria-describedby={id}
               type="button"
@@ -226,14 +237,25 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
               />
             </Popper>
 
-            <Button color="primary" startIcon={<PlusIcon />} onClick={openAdd}>
+            <Button
+              data-cy="todo-add-button"
+              color="primary"
+              startIcon={<PlusIcon />}
+              onClick={openAdd}
+            >
               Tambah
             </Button>
           </Grid>
         </Grid>
 
         {(!list || list.length === 0) && (
-          <img src={TodoEmptyImage} alt="add-todo" className={classes.addImg} />
+          <img
+            data-cy="todo-empty-state"
+            src={TodoEmptyImage}
+            alt="add-todo"
+            className={classes.addImg}
+            onClick={openAdd}
+          />
         )}
 
         {list.length > 0 &&

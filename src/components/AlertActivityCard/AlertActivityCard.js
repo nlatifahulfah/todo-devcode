@@ -23,9 +23,11 @@ export default function AlertActivityCard({ text }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <InfoIcon />
-      <div className={classes.text}>{text}</div>
+    <div data-cy="modal-information" className={classes.root}>
+      <InfoIcon data-cy="modal-information-icon" />
+      <div data-cy="modal-information-title" className={classes.text}>
+        {text}
+      </div>
     </div>
   );
 }

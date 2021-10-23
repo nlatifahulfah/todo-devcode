@@ -62,7 +62,11 @@ export default function SelectPriority({ selected, onSelect }) {
 
   return (
     <div className={classes.root}>
-      <div className={classes.selected}>
+      <div
+        data-cy="modal-add-priority-dropdown"
+        className={classes.selected}
+        onClick={() => setOpen(true)}
+      >
         <div className={classes.priorityItem}>
           <div
             className={classes.priorityIndicator}
@@ -70,7 +74,7 @@ export default function SelectPriority({ selected, onSelect }) {
           />
           <div className={classes.text}>{todoPriority[selected]?.label}</div>
         </div>
-        <ChevronDown onClick={() => setOpen((c) => !c)} />
+        <ChevronDown />
       </div>
 
       {/* list menu */}
@@ -85,6 +89,7 @@ export default function SelectPriority({ selected, onSelect }) {
           </div>
           {Object.entries(todoPriority).map(([key, val], i, arr) => (
             <div
+              data-cy="modal-add-priority-item"
               key={i}
               className={clsx(
                 classes.itemContainer,

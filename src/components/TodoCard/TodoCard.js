@@ -59,9 +59,10 @@ export default function TodoCard({
   const classes = useStyles();
 
   return (
-    <div className={clsx(classes.root, className)}>
+    <div data-cy="todo-item" className={clsx(classes.root, className)}>
       <div className={classes.todo}>
         <Checkbox
+          data-cy="todo-item-checkbox"
           color="primary"
           checked={isDone}
           onChange={(e) => {
@@ -71,11 +72,15 @@ export default function TodoCard({
           }}
         />
         <div
+          data-cy="todo-item-priority-indicator"
           className={classes.priorityIndicator}
           style={{ background: todoPriority[priority]?.color }}
         />
-        <div className={classes.title}>{title}</div>
+        <div data-cy="todo-item-title" className={classes.title}>
+          {title}
+        </div>
         <EditIcon
+          data-cy="todo-item-edit-button"
           onClick={(e) => {
             console.log("edit");
             e.stopPropagation();
@@ -84,6 +89,7 @@ export default function TodoCard({
         />
       </div>
       <DeleteIcon
+        data-cy="todo-item-delete-button"
         onClick={(e) => {
           e.stopPropagation();
           onClickDelete && onClickDelete(e);

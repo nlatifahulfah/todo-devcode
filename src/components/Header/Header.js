@@ -24,8 +24,13 @@ function Header({ className }) {
   const classes = useStyles();
 
   return (
-    <div className={clsx(classes.headerBackground, className)}>
-      <div className={classes.headerTitle}>To Do List App</div>
+    <div
+      data-cy="header-background"
+      className={clsx(classes.headerBackground, className)}
+    >
+      <div data-cy="header-title" className={classes.headerTitle}>
+        To Do List App
+      </div>
     </div>
   );
 }

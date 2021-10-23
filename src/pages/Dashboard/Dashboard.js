@@ -100,8 +100,9 @@ function Dashboard({ onClickActivity }) {
           alignItems="center"
           className={classes.mb42}
         >
-          <Title>Activity</Title>
+          <Title data-cy="activity-title">Activity</Title>
           <Button
+            data-cy="activity-add-button"
             color="primary"
             startIcon={<PlusIcon />}
             onClick={reqAddActivity}
@@ -111,9 +112,11 @@ function Dashboard({ onClickActivity }) {
         </Grid>
         {(!list || list.length === 0) && (
           <img
+            data-cy="activity-empty-state"
             src={ActivityEmptyImage}
             alt="add-activity"
             className={classes.addActivityImg}
+            onClick={reqAddActivity}
           />
         )}
         {list?.length > 0 && (

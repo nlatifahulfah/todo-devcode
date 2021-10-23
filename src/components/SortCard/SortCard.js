@@ -40,8 +40,9 @@ export default function SortCard({ value, onChange }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div data-cy="sort-parent" className={classes.root}>
       <div
+        data-cy="sort-selection"
         className={classes.sortItem}
         onClick={() => onChange && onChange(sortBy.terbaru)}
       >
@@ -50,6 +51,7 @@ export default function SortCard({ value, onChange }) {
         {value === sortBy.terbaru && <SelectedIcon />}
       </div>
       <div
+        data-cy="sort-selection"
         className={classes.sortItem}
         onClick={() => onChange && onChange(sortBy.terlama)}
       >
@@ -58,6 +60,7 @@ export default function SortCard({ value, onChange }) {
         {value === sortBy.terlama && <SelectedIcon />}
       </div>
       <div
+        data-cy="sort-selection"
         className={classes.sortItem}
         onClick={() => onChange && onChange(sortBy.az)}
       >
@@ -66,6 +69,7 @@ export default function SortCard({ value, onChange }) {
         {value === sortBy.az && <SelectedIcon />}
       </div>
       <div
+        data-cy="sort-selection"
         className={classes.sortItem}
         onClick={() => onChange && onChange(sortBy.za)}
       >
@@ -74,6 +78,7 @@ export default function SortCard({ value, onChange }) {
         {value === sortBy.za && <SelectedIcon />}
       </div>
       <div
+        data-cy="sort-selection"
         className={classes.sortItem}
         onClick={() => onChange && onChange(sortBy.belumSelesai)}
       >

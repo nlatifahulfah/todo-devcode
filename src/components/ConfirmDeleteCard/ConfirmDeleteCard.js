@@ -44,15 +44,27 @@ const ConfirmDeleteCard = forwardRef(
     const classes = useStyles();
 
     return (
-      <div ref={ref} className={clsx(classes.root, className)} {...props}>
-        <DeleteIcon className={classes.mb50} />
-        <div className={classes.text}>Apakah anda yakin menghapus {item}</div>
+      <div
+        data-cy="modal-delete"
+        ref={ref}
+        className={clsx(classes.root, className)}
+        {...props}
+      >
+        <DeleteIcon data-cy="modal-delete-icon" className={classes.mb50} />
+        <div data-cy="modal-delete-title" className={classes.text}>
+          Apakah anda yakin menghapus {item}
+        </div>
         <div className={clsx(classes.text, classes.bold)}>"{itemTitle}"?</div>
         <div className={classes.buttonGroup}>
-          <Button className={classes.mx10} onClick={onClickBatal}>
+          <Button
+            data-cy="modal-delete-cancel-button"
+            className={classes.mx10}
+            onClick={onClickBatal}
+          >
             Batal
           </Button>
           <Button
+            data-cy="modal-delete-confirm-button"
             color="secondary"
             className={classes.mx10}
             onClick={onClickHapus}
