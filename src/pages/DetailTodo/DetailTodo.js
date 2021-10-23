@@ -62,6 +62,7 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
 
   useEffect(() => {
     if (activityId) {
+      apiActivity.getDetail(activityId);
       reqGetList(activityId);
     }
   }, [activityId]);
