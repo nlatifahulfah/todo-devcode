@@ -89,7 +89,7 @@ function Dashboard({ onClickActivity }) {
         console.log("add", { result });
         if (result) {
           setList((c) => [...c, result]);
-          reqGetList();
+          // reqGetList();
         }
       })
       .catch((error) => console.log({ error }));

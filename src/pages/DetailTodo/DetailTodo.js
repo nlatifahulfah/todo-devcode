@@ -60,10 +60,17 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
       console.log({ result });
     });
 
+  const reqGetDetail = (activityId) =>
+    apiActivity.getDetail(activityId).then((result) => {
+      setList(result.todo_items);
+      console.log({ result });
+    });
+
   useEffect(() => {
     if (activityId) {
-      apiActivity.getDetail(activityId);
-      reqGetList(activityId);
+      // apiActivity.getDetail(activityId);
+      // reqGetList(activityId);
+      reqGetDetail(activityId);
     }
   }, [activityId]);
 
@@ -113,7 +120,7 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
         toggleModal();
         console.log("add result", { result });
         setList((c) => [result, ...c]);
-        reqGetList(activityId);
+        // reqGetList(activityId);
       })
       .catch((error) => console.log(error));
   };
