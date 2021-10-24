@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     margin: "auto",
   },
   mb42: { marginBottom: 42 },
-  mb48: { marginBottom: 20 },
+  mb48: { marginBottom: 48 },
   pt24: { paddingTop: 24 },
   addImg: {
     maxWidth: "100%",
@@ -41,9 +41,9 @@ const useStyles = makeStyles(() => ({
   },
   modalConfirm: {
     position: "absolute",
-    top: "50%",
+    top: 10,
     left: "50%",
-    transform: "translate(-50%,-50%)",
+    transform: "translateX(-50%)",
   },
   flexContainer: {
     display: "flex",
