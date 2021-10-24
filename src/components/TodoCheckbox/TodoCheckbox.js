@@ -6,15 +6,15 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     paddingLeft: "20px",
     marginBottom: "20px",
-    cursor: "pointer",
+    // cursor: "pointer",
     fontSize: "22px",
     userSelect: "none",
     "& input": {
       position: "absolute",
       opacity: 0,
       cursor: "pointer",
-      height: 0,
-      width: 0,
+      height: 1,
+      width: 1,
       "&:checked": {
         "& ~ $checkmark": {
           backgroundColor: "#16ABF8",
@@ -58,9 +58,9 @@ export default function TodoCheckbox({ ...props }) {
   const classes = useStyles();
 
   return (
-    <label className={classes.container} data-cy={props["data-cy"]}>
+    <label className={classes.container}>
       <input type="checkbox" {...props} />
-      <span className={classes.checkmark} data-cy={props["data-cy"]} />
+      <span className={classes.checkmark} />
     </label>
   );
 }
