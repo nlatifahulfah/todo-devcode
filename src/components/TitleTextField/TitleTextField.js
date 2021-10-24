@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -6,12 +6,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: 36,
     color: "#111111",
+    outline: "none",
     border: "none",
 
     "&:focus": {
-      border: "none",
-      outline: "none",
-      borderBottom: `2px solid ${theme.palette.primary.main}`,
+      borderBottom: `2px solid "#16ABF8"`,
     },
   },
 }));

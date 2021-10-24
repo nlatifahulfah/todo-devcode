@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles(() => ({
   card: {
     padding: "22px 27px",
-    width: "235px",
-    height: "234px",
+    width: 180,
+    height: 190,
     background: "#FFFFFF",
     boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "12px",

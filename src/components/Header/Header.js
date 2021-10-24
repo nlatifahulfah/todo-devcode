@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   headerBackground: {
-    background: theme.palette.primary.main,
+    background: "#16ABF8",
     height: "105px",
     display: "flex",
     alignItems: "center",
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: 24,
     textTransform: "uppercase",
-    color: theme.palette.primary.contrastText,
+    color: "#FFFFFF",
   },
 }));
 

@@ -1,8 +1,8 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import { forwardRef } from "react";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     borderRadius: "45px",
     minWidth: "150px",
@@ -14,16 +14,16 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px 6px",
   },
   primary: {
-    background: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
+    background: "#16ABF8",
+    color: "#FFFFFF",
 
     "&:disabled": {
       opacity: 0.2,
     },
   },
   secondary: {
-    background: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
+    background: "#ED4C5C",
+    color: "#FFFFFF",
   },
 }));
 

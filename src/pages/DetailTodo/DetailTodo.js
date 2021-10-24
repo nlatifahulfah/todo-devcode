@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     margin: "auto",
   },
   mb42: { marginBottom: 42 },
-  mb48: { marginBottom: 48 },
+  mb48: { marginBottom: 20 },
   pt24: { paddingTop: 24 },
   addImg: {
     maxWidth: "100%",

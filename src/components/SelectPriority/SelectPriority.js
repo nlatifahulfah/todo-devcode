@@ -6,7 +6,7 @@ import { todoPriority } from "components/TodoCard/TodoCard";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: { width: 205, position: "relative" },
   selected: {
     display: "flex",
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   priorityIndicator: {
     width: "14px",
     height: "14px",
-    background: theme.palette.primary.main,
+    background: "#16ABF8",
     borderRadius: "50%",
     marginRight: 19,
   },

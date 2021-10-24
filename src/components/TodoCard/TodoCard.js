@@ -1,16 +1,16 @@
-import PropTypes from "prop-types";
-import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
 import { ReactComponent as EditIcon } from "assets/icon/edit-button.svg";
 import clsx from "clsx";
+import TodoCheckbox from "components/TodoCheckbox";
+import PropTypes from "prop-types";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     alignItems: "center",
     borderRadius: "12px",
-    padding: "12px",
+    padding: "30px 28px",
     background: "#FFFFFF",
     boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.1)",
     marginBottom: 10,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   priorityIndicator: {
     width: "9px",
     height: "9px",
-    background: theme.palette.primary.main,
+    background: "#16ABF8",
     borderRadius: "50%",
     margin: "0 16px 0 13px",
   },
@@ -60,9 +60,8 @@ export default function TodoCard({
   return (
     <div data-cy="todo-item" className={clsx(classes.root, className)}>
       <div className={classes.todo}>
-        <Checkbox
+        <TodoCheckbox
           data-cy="todo-item-checkbox"
-          color="primary"
           checked={isDone}
           onChange={(e) => {
             e.stopPropagation();

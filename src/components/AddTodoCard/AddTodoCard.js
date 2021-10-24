@@ -1,9 +1,9 @@
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as CloseButton } from "assets/icon/modal-add-close-button.svg";
 import clsx from "clsx";
 import Button from "components/Button";
 import SelectPriority from "components/SelectPriority";
+import TodoTextField from "components/TodoTextField";
 import { forwardRef } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +83,7 @@ const AddTodoCard = forwardRef(
           <div data-cy="modal-add-name-title" className={classes.inputLabel}>
             NAMA LIST ITEM
           </div>
-          <OutlinedInput
+          <TodoTextField
             data-cy="modal-add-name-input"
             autoFocus
             value={name}
