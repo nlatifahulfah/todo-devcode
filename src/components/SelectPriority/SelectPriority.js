@@ -3,7 +3,6 @@ import { ReactComponent as SelectedIcon } from "assets/icon/sort-selection-selec
 import { ReactComponent as ChevronDown } from "assets/icon/tabler_chevron-down.svg";
 import clsx from "clsx";
 import { todoPriority } from "components/TodoCard/TodoCard";
-import PropTypes from "prop-types";
 import { useState } from "react";
 
 const useStyles = makeStyles(() => ({
@@ -77,7 +76,6 @@ export default function SelectPriority({ selected, onSelect }) {
         <ChevronDown />
       </div>
 
-      {/* list menu */}
       {open && (
         <div className={classes.listItem}>
           <div className={classes.selectOpen}>
@@ -115,6 +113,3 @@ export default function SelectPriority({ selected, onSelect }) {
     </div>
   );
 }
-SelectPriority.propTypes = {
-  selected: PropTypes.oneOf(Object.keys(todoPriority)),
-};

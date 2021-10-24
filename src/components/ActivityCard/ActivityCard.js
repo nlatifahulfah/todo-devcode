@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/styles";
 import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
 import clsx from "clsx";
 import { formatDate } from "helper/format";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -60,16 +59,5 @@ function ActivityCard({ title, date, onClick, onClickDelete, className }) {
     </div>
   );
 }
-
-ActivityCard.propTypes = {
-  /** card title */
-  title: PropTypes.string,
-  /** date string, eg. "2021-10-15T15:34:42.000Z" */
-  date: PropTypes.string,
-  /** onclick card */
-  onClick: PropTypes.func,
-  /** onclick delete icon */
-  onClickDelete: PropTypes.func,
-};
 
 export default ActivityCard;

@@ -3,7 +3,6 @@ import { ReactComponent as DeleteIcon } from "assets/icon/delete-button.svg";
 import { ReactComponent as EditIcon } from "assets/icon/edit-button.svg";
 import clsx from "clsx";
 import TodoCheckbox from "components/TodoCheckbox";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -94,12 +93,3 @@ export default function TodoCard({
     </div>
   );
 }
-
-TodoCard.propTypes = {
-  isDone: PropTypes.bool,
-  priority: PropTypes.oneOf(Object.keys(todoPriority)),
-  title: PropTypes.string,
-  onClickEdit: PropTypes.func,
-  onClickDelete: PropTypes.func,
-  onClickCheckbox: PropTypes.func,
-};

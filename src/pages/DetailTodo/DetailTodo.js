@@ -264,11 +264,6 @@ export default function DetailTodo({ activityId, activityTitle, onClickBack }) {
             />
           ))}
       </div>
-
-      <div data-cy="modal-add" />
-      <div data-cy="modal-delete" />
-      <div data-cy="modal-information" />
-      {/* modal add */}
       <Modal open={openModal} onClose={toggleModal}>
         <>
           {(formType === 1 || formType === 2) && (

@@ -124,9 +124,6 @@ function Dashboard({ onClickActivity }) {
           </div>
         )}
       </div>
-      {/* zzz */}
-      <div data-cy="modal-delete" />
-      <div data-cy="modal-information" />
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <>
           {modalType === 1 && (

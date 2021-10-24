@@ -10,16 +10,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     userSelect: "none",
     "& input": {
-      /*  Hide the browser's default checkbox  */
       position: "absolute",
       opacity: 0,
       cursor: "pointer",
       height: 0,
       width: 0,
-      /* Show the checkmark when checked */
       "&:checked": {
         "& ~ $checkmark": {
-          /* When the checkbox is checked, add a blue background */
           backgroundColor: "#16ABF8",
           border: "none",
           "&:after": {
