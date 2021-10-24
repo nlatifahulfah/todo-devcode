@@ -58,9 +58,9 @@ export default function TodoCheckbox({ ...props }) {
   const classes = useStyles();
 
   return (
-    <label className={classes.container}>
+    <label className={classes.container} data-cy={props["data-cy"]}>
       <input type="checkbox" {...props} />
-      <span className={classes.checkmark} />
+      <span className={classes.checkmark} data-cy={props["data-cy"]} />
     </label>
   );
 }
